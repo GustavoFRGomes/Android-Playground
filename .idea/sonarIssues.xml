@@ -28,6 +28,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/me/ggomes/movieapp/data/network/OpenMovieDbEndpoints.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/me/ggomes/movieapp/data/network/RetrofitApiClient.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/me/ggomes/movieapp/viewmodels/MovieDetailsViewModel.kt">
           <value>
             <set />
