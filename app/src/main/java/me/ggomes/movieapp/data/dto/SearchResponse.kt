@@ -1,9 +1,11 @@
 package me.ggomes.movieapp.data.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class SearchResponse(
-    val title: String, // Title
-    val year: String, // Year
-    val imdbId: String, // imdbID
-    val type: String, // Type
-    val posterUrl: String, // Poster
+    @SerializedName("Title") val title: String, // Title
+    @SerializedName("Year") val year: String, // Year
+    @SerializedName("imdbID") val imdbId: String, // imdbID
+    @SerializedName("Type") val type: String, // Type
+    @SerializedName("Poster") val posterUrl: String, // Poster
 )
