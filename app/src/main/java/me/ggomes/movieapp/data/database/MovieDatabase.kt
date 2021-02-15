@@ -1,20 +1,34 @@
 package me.ggomes.movieapp.data.database
 
-import androidx.room.DatabaseConfiguration
-import androidx.room.InvalidationTracker
+import android.app.Application
+import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteOpenHelper
+import me.ggomes.movieapp.data.dao.MovieDao
+import me.ggomes.movieapp.data.dao.MovieDetailDao
+import me.ggomes.movieapp.models.Movie
+import me.ggomes.movieapp.models.MovieDetail
 
-class MovieDatabase: RoomDatabase() {
-    override fun createOpenHelper(config: DatabaseConfiguration?): SupportSQLiteOpenHelper {
-        TODO("Not yet implemented")
-    }
+@Database(entities = [Movie::class, MovieDetail::class], version = 1)
+abstract class MovieDatabase: RoomDatabase() {
 
-    override fun createInvalidationTracker(): InvalidationTracker {
-        TODO("Not yet implemented")
-    }
+    abstract fun movieDao(): MovieDao
+    abstract fun movieDetailDao(): MovieDetailDao
 
-    override fun clearAllTables() {
-        TODO("Not yet implemented")
+    companion object {
+        private const val DB_NAME = "MovieDb"
+        private var instance: MovieDatabase? = null
+        private val lock = Any()
+
+        fun getInstance(application: Application): MovieDatabase {
+            synchronized(lock) {
+                if (instance == null) {
+                    instance = Room.databaseBuilder(application, MovieDatabase::class.java, DB_NAME)
+                        .build()
+                }
+            }
+
+            return instance!!
+        }
     }
 }

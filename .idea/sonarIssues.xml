@@ -8,6 +8,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/me/ggomes/movieapp/data/dao/MovieDao.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/me/ggomes/movieapp/data/dao/MovieDetailDao.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/me/ggomes/movieapp/data/database/MovieDatabase.kt">
           <value>
             <set />
@@ -24,6 +34,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/me/ggomes/movieapp/data/dto/SearchResponse.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/me/ggomes/movieapp/models/Movie.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/me/ggomes/movieapp/models/MovieDetail.kt">
           <value>
             <set />
           </value>
