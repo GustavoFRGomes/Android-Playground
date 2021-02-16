@@ -5,18 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import me.ggomes.movieapp.R
 import me.ggomes.movieapp.models.Movie
+import me.ggomes.movieapp.views.utils.MovieDiffItemCallback
 import me.ggomes.movieapp.views.utils.MovieDiffUtilCallback
 
 class MovieListRecyclerAdapter(
     private val onItemClickListener: (Movie) -> Unit
-): RecyclerView.Adapter<MovieListRecyclerAdapter.MovieViewHolder>() {
-
-    private val movies: MutableList<Movie> = mutableListOf()
+): PagingDataAdapter<Movie, MovieListRecyclerAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -26,20 +26,9 @@ class MovieListRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movies[position])
-    }
-
-    override fun getItemCount(): Int = movies.size
-
-    fun updatedMovieList(updatedMovieList: List<Movie>) {
-        val diffUtilCallback = MovieDiffUtilCallback(movies, updatedMovieList)
-        val diffResult = DiffUtil.calculateDiff(diffUtilCallback)
-
-        movies.clear()
-        movies.addAll(updatedMovieList)
-
-        diffResult.dispatchUpdatesTo(this)
-
+        getItem(position)?.let { movie ->
+            holder.bind(movie)
+        }
     }
 
     inner class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

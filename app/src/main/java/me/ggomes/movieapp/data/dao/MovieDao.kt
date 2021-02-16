@@ -1,6 +1,6 @@
 package me.ggomes.movieapp.data.dao
 
-import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,10 +11,10 @@ import me.ggomes.movieapp.models.Movie
 interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(movie: Movie)
+    suspend fun saveMovies(movies: List<Movie>)
 
-    @Query("SELECT * FROM movie")
-    suspend fun getAll(): List<Movie>
+    @Query("SELECT * FROM Movie")
+    fun getAllMovies(): PagingSource<Int, Movie>
 
     @Query("SELECT * FROM Movie WHERE id=:id")
     suspend fun getBy(id: String): Movie

@@ -7,9 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import me.ggomes.movieapp.R
 import me.ggomes.movieapp.models.Movie
 import me.ggomes.movieapp.viewmodels.MovieListViewModel
@@ -27,6 +32,7 @@ class MovieListFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_movie_list, container, false)
     }
 
+    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -40,8 +46,10 @@ class MovieListFragment: Fragment() {
                     .show()
         }
 
-        movieListViewModel.getMovies().observe(this) { movieList ->
-            recyclerAdapter.updatedMovieList(movieList)
+        lifecycleScope.launch {
+            movieListViewModel.getMovies().collectLatest { pagingData ->
+                recyclerAdapter.submitData(pagingData)
+            }
         }
 
     }
