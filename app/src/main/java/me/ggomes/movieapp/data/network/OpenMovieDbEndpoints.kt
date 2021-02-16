@@ -10,8 +10,8 @@ import retrofit2.http.Query
 interface OpenMovieDbEndpoints {
 
     @GET("/?apiKey=${BuildConfig.API_KEY}")
-    fun search(@Query("s") searchTerm: String): Call<MovieResponse>
+    suspend fun search(@Query("s") searchTerm: String): MovieResponse
 
     @GET("/?apiKey=${BuildConfig.API_KEY}")
-    fun getMovieBy(@Query("i") imdbId: String): Call<MovieDetailsResponse>
+    suspend fun getMovieBy(@Query("i") imdbId: String): MovieDetailsResponse
 }

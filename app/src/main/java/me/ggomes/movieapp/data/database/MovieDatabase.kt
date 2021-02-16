@@ -1,6 +1,7 @@
 package me.ggomes.movieapp.data.database
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -20,10 +21,10 @@ abstract class MovieDatabase: RoomDatabase() {
         private var instance: MovieDatabase? = null
         private val lock = Any()
 
-        fun getInstance(application: Application): MovieDatabase {
+        fun getInstance(context: Context): MovieDatabase {
             synchronized(lock) {
                 if (instance == null) {
-                    instance = Room.databaseBuilder(application, MovieDatabase::class.java, DB_NAME)
+                    instance = Room.databaseBuilder(context.applicationContext, MovieDatabase::class.java, DB_NAME)
                         .build()
                 }
             }

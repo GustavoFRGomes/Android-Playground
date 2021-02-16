@@ -11,14 +11,17 @@ import me.ggomes.movieapp.models.Movie
 interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(movie: Movie)
+    suspend fun insert(movie: Movie)
 
     @Query("SELECT * FROM movie")
-    fun getAll(): LiveData<List<Movie>>
+    suspend fun getAll(): List<Movie>
 
     @Query("SELECT * FROM Movie WHERE id=:id")
-    fun getBy(id: String): LiveData<Movie>
+    suspend fun getBy(id: String): Movie
+
+    @Query("SELECT * FROM Movie WHERE title LIKE :term")
+    suspend fun searchBy(term: String): List<Movie>
 
     @Query("DELETE FROM movie WHERE id=:id")
-    fun delete(id: String)
+    suspend fun delete(id: String)
 }

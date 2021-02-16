@@ -11,14 +11,14 @@ import me.ggomes.movieapp.models.MovieDetail
 interface MovieDetailDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(movieDetail: MovieDetail)
+    suspend fun insert(movieDetail: MovieDetail)
 
     @Query("SELECT * FROM MovieDetail")
-    fun getAllDetails(): LiveData<List<MovieDetail>>
+    suspend fun getAllDetails(): List<MovieDetail>
 
     @Query("SELECT * FROM MovieDetail WHERE id=:id")
-    fun getDetailsBy(id: String): LiveData<MovieDetail>
+    suspend fun getDetailsBy(id: String): MovieDetail?
 
     @Query("DELETE FROM MovieDetail WHERE id=:id")
-    fun delete(id: String)
+    suspend fun delete(id: String)
 }

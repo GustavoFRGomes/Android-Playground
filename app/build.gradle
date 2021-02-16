@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+
 }
 
 android {
@@ -33,10 +36,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
-    def room_version = "1.1.1"
+    def room_version = "2.2.6"
     def retrofit_version = "2.9.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -49,13 +55,26 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // Room Database
-    implementation "android.arch.persistence.room:runtime:$room_version"
-    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
-    androidTestImplementation "android.arch.persistence.room:testing:$room_version"
-    androidTestImplementation "android.arch.core:core-testing:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
+    // Navigation
+    def nav_version = "2.3.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Picasso
+    def picasso_version = "2.71828"
+    implementation "com.squareup.picasso:picasso:$picasso_version"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+
+    // Koin
+    def koin_version = '2.2.2'
+    implementation "org.koin:koin-android:$koin_version"
 }
