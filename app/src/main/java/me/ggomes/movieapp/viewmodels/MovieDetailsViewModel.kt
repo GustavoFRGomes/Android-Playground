@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import me.ggomes.movieapp.data.dto.MovieDetailsResponse
@@ -22,7 +23,9 @@ class MovieDetailsViewModel: BaseViewModel() {
     fun getMovieDetailsBy(movieId: String): LiveData<MovieDetail> {
         val responseLiveData = MutableLiveData<MovieDetail>()
         viewModelScope.launch {
-            movieRepository.getMovieBy(movieId).collect {
+            movieRepository.getMovieBy(movieId).catch { cause ->
+                _errorLiveData.postValue(cause)
+            }.collect {
                 responseLiveData.postValue(it)
             }
         }

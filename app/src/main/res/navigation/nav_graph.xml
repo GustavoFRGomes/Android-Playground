@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/movieListFragment"
-        android:name="me.ggomes.movieapp.views.MovieListFragment"
+        android:name="me.ggomes.movieapp.views.fragments.MovieListFragment"
         android:label="MovieListFragment" >
         <action
             android:id="@+id/action_movieListFragment_to_movieDetailsFragment"
@@ -20,6 +20,6 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="me.ggomes.movieapp.views.MovieDetailsFragment"
+        android:name="me.ggomes.movieapp.views.fragments.MovieDetailsFragment"
         android:label="MovieDetailsFragment" />
 </navigation>

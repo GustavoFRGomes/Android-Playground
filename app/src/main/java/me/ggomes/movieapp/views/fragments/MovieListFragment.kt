@@ -1,4 +1,4 @@
-package me.ggomes.movieapp.views
+package me.ggomes.movieapp.views.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,8 +41,7 @@ class MovieListFragment: Fragment() {
     }
 
     private fun navigateToMovieDetails(movie: Movie) {
-        val action = MovieListFragmentDirections
-            .actionMovieListFragmentToMovieDetailsFragment(movie.id)
+        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(movie.id)
 
         findNavController().navigate(action)
     }

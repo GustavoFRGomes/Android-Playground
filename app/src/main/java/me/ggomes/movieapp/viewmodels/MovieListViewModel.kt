@@ -3,6 +3,7 @@ package me.ggomes.movieapp.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -19,9 +20,12 @@ class MovieListViewModel: BaseViewModel() {
         val movieListLiveData = MutableLiveData<List<Movie>>()
 
         viewModelScope.launch {
-            movieRepository.searchMoviesBy(searchTerm).collect {
+            movieRepository.searchMoviesBy(searchTerm).catch { cause ->
+                _errorLiveData.postValue(cause)
+            }.collect {
                 movieListLiveData.postValue(it)
             }
+
         }
 
         return movieListLiveData

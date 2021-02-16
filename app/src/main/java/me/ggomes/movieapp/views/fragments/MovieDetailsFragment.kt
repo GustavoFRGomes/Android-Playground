@@ -1,4 +1,4 @@
-package me.ggomes.movieapp.views
+package me.ggomes.movieapp.views.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.squareup.picasso.Picasso
-import me.ggomes.movieapp.R
 import me.ggomes.movieapp.databinding.FragmentMovieDetailsBinding
 import me.ggomes.movieapp.viewmodels.MovieDetailsViewModel
 
