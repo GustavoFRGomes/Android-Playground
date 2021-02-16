@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import me.ggomes.movieapp.data.repositories.MovieRepository
+import me.ggomes.movieapp.data.repositories.abstract.data.Optional
 import me.ggomes.movieapp.models.Movie
 import org.koin.java.KoinJavaComponent.inject
 
@@ -20,7 +21,10 @@ class MovieListViewModel: BaseViewModel() {
 
         viewModelScope.launch {
             movieRepository.searchMoviesBy(searchTerm).collect {
-                movieListLiveData.postValue(it)
+                when(it) {
+                    is Optional.Success -> movieListLiveData.postValue(it.result)
+                    is Optional.Error -> _errorLiveData.postValue(it.throwable)
+                }
             }
         }
 
