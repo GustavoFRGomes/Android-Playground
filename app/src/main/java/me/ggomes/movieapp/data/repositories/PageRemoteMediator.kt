@@ -30,21 +30,24 @@ class PageRemoteMediator(
                 }
             }
 
-            val response = movieApi.search(searchTerm, page = loadKey?.id ?: 1)
-            Log.d("MEDIATOR__", "loadKey: $loadKey.id")
+            val page = loadKey?.id ?: 1
+            val response = movieApi.search(searchTerm, page = page)
+
 
             val searchResponse = response.search
             val movies = searchResponse.map { movieResponse ->
                 Movie(
-                    movieResponse.imdbId,
-                    movieResponse.title,
-                    movieResponse.year,
-                    movieResponse.posterUrl
+                        movieResponse.imdbId,
+                        movieResponse.title,
+                        movieResponse.year,
+                        movieResponse.posterUrl
                 )
             }
 
-            if (movies != null && movies.isNotEmpty())
+            if (movies.isNotEmpty()) {
                 movieDatabase.movieDao().saveMovies(movies)
+                movieDatabase.movieKeysDao().saveMovieKeys(MovieKeys(page + 1))
+            }
 
             MediatorResult.Success(endOfPaginationReached = movies.size != 10)
         } catch (exception: IOException) {
