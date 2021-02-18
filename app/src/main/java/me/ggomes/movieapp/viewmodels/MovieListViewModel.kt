@@ -1,13 +1,10 @@
 package me.ggomes.movieapp.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 import me.ggomes.movieapp.data.repositories.MovieRepository
 import me.ggomes.movieapp.models.Movie
 import org.koin.java.KoinJavaComponent.inject

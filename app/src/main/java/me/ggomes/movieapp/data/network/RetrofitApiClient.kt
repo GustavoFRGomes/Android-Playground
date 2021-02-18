@@ -23,7 +23,7 @@ object RetrofitApiClient {
                 .build()
     }
 
-    val openMovieDbService: OpenMovieDbEndpoints by lazy {
-        retrofit.create(OpenMovieDbEndpoints::class.java)
+    val openMovieDbService: OpenMovieDatabaseService by lazy {
+        retrofit.create(OpenMovieDatabaseService::class.java)
     }
 }

@@ -33,7 +33,7 @@ class MovieDetailsFragment: Fragment() {
             val id = bundle.getString(MOVIE_ID_KEY, "")
 
             viewBinding.progressBar.visibility = View.VISIBLE
-            movieDetailsViewModel.getMovieDetailsBy(id).observe(this) { movie ->
+            movieDetailsViewModel.getMovieDetailsBy(id).observe(viewLifecycleOwner) { movie ->
                 Picasso.get()
                         .load(movie.posterUrl)
                         .into(viewBinding.moviePosterImageview)
@@ -52,7 +52,7 @@ class MovieDetailsFragment: Fragment() {
             }
         }
 
-        movieDetailsViewModel.errorLiveData.observe(this) {
+        movieDetailsViewModel.errorLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(
                 context,
                 requireContext().getString(R.string.error_data_retrieval),

@@ -8,12 +8,12 @@ plugins {
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "me.ggomes.movieapp"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 

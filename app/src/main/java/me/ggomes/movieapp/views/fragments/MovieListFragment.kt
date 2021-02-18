@@ -29,7 +29,7 @@ class MovieListFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         movieListViewBinding = FragmentMovieListBinding.inflate(inflater , container, false)
         return movieListViewBinding.root
     }
@@ -43,7 +43,7 @@ class MovieListFragment: Fragment() {
         val recyclerAdapter = MovieListRecyclerAdapter(::navigateToMovieDetails)
         recycler.adapter = recyclerAdapter
 
-        movieListViewModel.errorLiveData.observe(this) {
+        movieListViewModel.errorLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(
                 context,
                 requireContext().getString(R.string.error_data_retrieval),

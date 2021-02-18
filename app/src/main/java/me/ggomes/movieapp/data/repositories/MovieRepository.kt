@@ -1,30 +1,20 @@
 package me.ggomes.movieapp.data.repositories
 
-import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import me.ggomes.movieapp.data.database.MovieDatabase
-import me.ggomes.movieapp.data.dto.MovieResponse
-import me.ggomes.movieapp.data.network.OpenMovieDbEndpoints
-import me.ggomes.movieapp.data.paging.MoviePagingSource
+import me.ggomes.movieapp.data.network.OpenMovieDatabaseService
+import me.ggomes.movieapp.data.paging.PageRemoteMediator
 import me.ggomes.movieapp.models.Movie
 import me.ggomes.movieapp.models.MovieDetail
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MovieRepository(
     private val database: MovieDatabase,
-    private val apiService: OpenMovieDbEndpoints
+    private val apiService: OpenMovieDatabaseService
 ) {
     @ExperimentalPagingApi
     fun searchMoviesBy(term: String): Flow<PagingData<Movie>> {

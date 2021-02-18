@@ -1,12 +1,11 @@
-package me.ggomes.movieapp.data.repositories
+package me.ggomes.movieapp.data.paging
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import me.ggomes.movieapp.data.database.MovieDatabase
-import me.ggomes.movieapp.data.network.OpenMovieDbEndpoints
+import me.ggomes.movieapp.data.network.OpenMovieDatabaseService
 import me.ggomes.movieapp.models.Movie
 import me.ggomes.movieapp.models.MovieKeys
 import retrofit2.HttpException
@@ -14,9 +13,9 @@ import java.io.IOException
 
 @ExperimentalPagingApi
 class PageRemoteMediator(
-    private val movieApi: OpenMovieDbEndpoints,
-    private val movieDatabase: MovieDatabase,
-    private val searchTerm: String
+        private val movieApi: OpenMovieDatabaseService,
+        private val movieDatabase: MovieDatabase,
+        private val searchTerm: String
 ): RemoteMediator<Int, Movie>() {
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Movie>): MediatorResult {
         return try {
