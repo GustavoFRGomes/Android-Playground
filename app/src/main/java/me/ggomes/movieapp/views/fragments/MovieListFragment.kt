@@ -42,7 +42,7 @@ class MovieListFragment: Fragment() {
         recycler.adapter = recyclerAdapter
 
         movieListViewModel.errorLiveData.observe(this) {
-            Toast.makeText(context, "There was a problem retrieving your data!", Toast.LENGTH_SHORT)
+            Toast.makeText(context, context!!.getString(R.string.error_data_retrieval), Toast.LENGTH_SHORT)
                     .show()
         }
 

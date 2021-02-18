@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.squareup.picasso.Picasso
+import me.ggomes.movieapp.R
 import me.ggomes.movieapp.databinding.FragmentMovieDetailsBinding
 import me.ggomes.movieapp.viewmodels.MovieDetailsViewModel
 
@@ -34,14 +35,14 @@ class MovieDetailsFragment: Fragment() {
 
                 viewBinding.movieTitleTextview.text = movie.title
                 viewBinding.movieYearTextview.text = movie.year
-                viewBinding.movieActorsTextview.text = "Cast: ${movie.actors}"
-                viewBinding.movieDirectorsTextview.text = "Directors: ${movie.directors}"
+                viewBinding.movieActorsTextview.text = context!!.getString(R.string.details_actors_dynamic, movie.actors)
+                viewBinding.movieDirectorsTextview.text = context!!.getString(R.string.details_directors_dynamic, movie.directors)
                 viewBinding.moviePlotTextview.text = movie.plot
             }
         }
 
         movieDetailsViewModel.errorLiveData.observe(this) {
-            Toast.makeText(context, "There was an error retrieving the detail for the movie!", Toast.LENGTH_SHORT)
+            Toast.makeText(context, context!!.getString(R.string.error_data_retrieval), Toast.LENGTH_SHORT)
                     .show()
         }
     }
