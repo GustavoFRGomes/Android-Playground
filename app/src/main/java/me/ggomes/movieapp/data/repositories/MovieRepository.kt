@@ -29,7 +29,7 @@ class MovieRepository(
     @ExperimentalPagingApi
     fun searchMoviesBy(term: String): Flow<PagingData<Movie>> {
         return Pager(
-            PagingConfig(pageSize = 10, enablePlaceholders = false, prefetchDistance = 3),
+            PagingConfig(pageSize = 10, enablePlaceholders = false, prefetchDistance = 5),
             remoteMediator = PageRemoteMediator(apiService, database, term),
             pagingSourceFactory = {
                 database.movieDao().getAllMovies()
