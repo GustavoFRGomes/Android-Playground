@@ -6,13 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import me.ggomes.movieapp.R
 import me.ggomes.movieapp.models.Movie
 import me.ggomes.movieapp.views.utils.MovieDiffItemCallback
-import me.ggomes.movieapp.views.utils.MovieDiffUtilCallback
 
 class MovieListRecyclerAdapter(
     private val onItemClickListener: (Movie) -> Unit
@@ -35,8 +33,9 @@ class MovieListRecyclerAdapter(
         fun bind(movie: Movie) {
             val posterImageView = itemView.findViewById<ImageView>(R.id.movie_poster_imageview)
             Picasso.get()
-                    .load(movie.posterUrl)
-                    .into(posterImageView)
+                .load(movie.posterUrl)
+                .placeholder(R.drawable.movie_placeholder)
+                .into(posterImageView)
 
             itemView.findViewById<TextView>(R.id.movie_title_textview).text = movie.title
             itemView.findViewById<TextView>(R.id.movie_year_textview).text = movie.year
