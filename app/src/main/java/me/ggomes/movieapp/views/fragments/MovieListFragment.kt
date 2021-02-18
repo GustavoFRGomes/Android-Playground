@@ -22,7 +22,7 @@ import me.ggomes.movieapp.views.adapters.MovieListRecyclerAdapter
 
 class MovieListFragment: Fragment() {
 
-    val movieListViewModel: MovieListViewModel by viewModels()
+    private val movieListViewModel: MovieListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,13 +37,15 @@ class MovieListFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recycler = view.findViewById<RecyclerView>(R.id.movie_recyclerview)
-        recycler.layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
+        recycler.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         val recyclerAdapter = MovieListRecyclerAdapter(::navigateToMovieDetails)
         recycler.adapter = recyclerAdapter
 
         movieListViewModel.errorLiveData.observe(this) {
-            Toast.makeText(context, context!!.getString(R.string.error_data_retrieval), Toast.LENGTH_SHORT)
-                    .show()
+            Toast.makeText(
+                context,
+                requireContext().getString(R.string.error_data_retrieval),
+                Toast.LENGTH_SHORT).show()
         }
 
         lifecycleScope.launch {
@@ -55,7 +57,8 @@ class MovieListFragment: Fragment() {
     }
 
     private fun navigateToMovieDetails(movie: Movie) {
-        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(movie.id)
+        val action = MovieListFragmentDirections
+            .actionMovieListFragmentToMovieDetailsFragment(movie.id)
 
         findNavController().navigate(action)
     }

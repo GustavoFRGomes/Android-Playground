@@ -17,7 +17,11 @@ class MovieDetailsFragment: Fragment() {
     private val movieDetailsViewModel: MovieDetailsViewModel by viewModels()
     private lateinit var viewBinding: FragmentMovieDetailsBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         viewBinding = FragmentMovieDetailsBinding.inflate(inflater)
         return viewBinding.root
     }
@@ -36,8 +40,12 @@ class MovieDetailsFragment: Fragment() {
 
                 viewBinding.movieTitleTextview.text = movie.title
                 viewBinding.movieYearTextview.text = movie.year
-                viewBinding.movieActorsTextview.text = context!!.getString(R.string.details_actors_dynamic, movie.actors)
-                viewBinding.movieDirectorsTextview.text = context!!.getString(R.string.details_directors_dynamic, movie.directors)
+
+                viewBinding.movieActorsTextview.text = requireContext()
+                    .getString(R.string.details_actors_dynamic, movie.actors)
+                viewBinding.movieDirectorsTextview.text = requireContext()
+                    .getString(R.string.details_directors_dynamic, movie.directors)
+
                 viewBinding.moviePlotTextview.text = movie.plot
 
                 viewBinding.progressBar.visibility = View.GONE
@@ -45,8 +53,10 @@ class MovieDetailsFragment: Fragment() {
         }
 
         movieDetailsViewModel.errorLiveData.observe(this) {
-            Toast.makeText(context, context!!.getString(R.string.error_data_retrieval), Toast.LENGTH_SHORT)
-                    .show()
+            Toast.makeText(
+                context,
+                requireContext().getString(R.string.error_data_retrieval),
+                Toast.LENGTH_SHORT).show()
         }
     }
 
