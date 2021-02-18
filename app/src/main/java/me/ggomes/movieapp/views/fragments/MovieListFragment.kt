@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import me.ggomes.movieapp.R
+import me.ggomes.movieapp.databinding.FragmentMovieListBinding
 import me.ggomes.movieapp.models.Movie
 import me.ggomes.movieapp.viewmodels.MovieListViewModel
 import me.ggomes.movieapp.views.adapters.MovieListRecyclerAdapter
@@ -22,20 +23,22 @@ import me.ggomes.movieapp.views.adapters.MovieListRecyclerAdapter
 class MovieListFragment: Fragment() {
 
     private val movieListViewModel: MovieListViewModel by viewModels()
+    private lateinit var movieListViewBinding: FragmentMovieListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_movie_list, container, false)
+        movieListViewBinding = FragmentMovieListBinding.inflate(inflater , container, false)
+        return movieListViewBinding.root
     }
 
     @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recycler = view.findViewById<RecyclerView>(R.id.movie_recyclerview)
+        val recycler = movieListViewBinding.movieRecyclerview
         recycler.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         val recyclerAdapter = MovieListRecyclerAdapter(::navigateToMovieDetails)
         recycler.adapter = recyclerAdapter
@@ -47,8 +50,10 @@ class MovieListFragment: Fragment() {
                 Toast.LENGTH_SHORT).show()
         }
 
+        movieListViewBinding.progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
             movieListViewModel.getMovies().collectLatest { pagingData ->
+                movieListViewBinding.progressBar.visibility = View.GONE
                 recyclerAdapter.submitData(pagingData)
             }
         }
