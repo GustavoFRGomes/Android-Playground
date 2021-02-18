@@ -28,6 +28,7 @@ class MovieDetailsFragment: Fragment() {
         arguments?.let { bundle ->
             val id = bundle.getString(MOVIE_ID_KEY, "")
 
+            viewBinding.progressBar.visibility = View.VISIBLE
             movieDetailsViewModel.getMovieDetailsBy(id).observe(this) { movie ->
                 Picasso.get()
                         .load(movie.posterUrl)
@@ -38,6 +39,8 @@ class MovieDetailsFragment: Fragment() {
                 viewBinding.movieActorsTextview.text = context!!.getString(R.string.details_actors_dynamic, movie.actors)
                 viewBinding.movieDirectorsTextview.text = context!!.getString(R.string.details_directors_dynamic, movie.directors)
                 viewBinding.moviePlotTextview.text = movie.plot
+
+                viewBinding.progressBar.visibility = View.GONE
             }
         }
 
