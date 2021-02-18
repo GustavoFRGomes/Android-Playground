@@ -1,6 +1,10 @@
 package me.ggomes.movieapp.data.repositories
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -11,6 +15,7 @@ import kotlinx.coroutines.runBlocking
 import me.ggomes.movieapp.data.database.MovieDatabase
 import me.ggomes.movieapp.data.dto.MovieResponse
 import me.ggomes.movieapp.data.network.OpenMovieDbEndpoints
+import me.ggomes.movieapp.data.paging.MoviePagingSource
 import me.ggomes.movieapp.models.Movie
 import me.ggomes.movieapp.models.MovieDetail
 import retrofit2.Call
@@ -21,31 +26,15 @@ class MovieRepository(
     private val database: MovieDatabase,
     private val apiService: OpenMovieDbEndpoints
 ) {
-    fun searchMoviesBy(term: String): Flow<List<Movie>> = flow {
-        val databaseResults = database.movieDao().searchBy("%$term%")
-        if (databaseResults.isNotEmpty())
-            emit(databaseResults)
-
-        try {
-            val response = apiService.search(term)
-            val movies = response.search.map {
-                Movie(it.imdbId, it.title, it.year, it.posterUrl)
-            }.distinct()
-
-            if (movies != databaseResults) {
-                emit(movies)
-
-                movies.forEach { movie ->
-                    if (!databaseResults.contains(movie))
-                        database.movieDao().insert(movie)
-                }
+    @ExperimentalPagingApi
+    fun searchMoviesBy(term: String): Flow<PagingData<Movie>> {
+        return Pager(
+            PagingConfig(pageSize = 10, enablePlaceholders = false, prefetchDistance = 3),
+            remoteMediator = PageRemoteMediator(apiService, database, term),
+            pagingSourceFactory = {
+                database.movieDao().getAllMovies()
             }
-        } catch (exception: Exception) {
-            // Don't absorb exception if Database didn't provide results
-            if (databaseResults.isEmpty())
-                throw exception
-        }
-
+        ).flow
     }
 
     fun getMovieBy(movieId: String): Flow<MovieDetail> = flow {
