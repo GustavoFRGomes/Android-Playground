@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
@@ -19,10 +18,11 @@ import me.ggomes.movieapp.databinding.FragmentMovieListBinding
 import me.ggomes.movieapp.models.Movie
 import me.ggomes.movieapp.viewmodels.MovieListViewModel
 import me.ggomes.movieapp.views.adapters.MovieListRecyclerAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieListFragment: Fragment() {
 
-    private val movieListViewModel: MovieListViewModel by viewModels()
+    private val movieListViewModel: MovieListViewModel by viewModel()
     private lateinit var movieListViewBinding: FragmentMovieListBinding
 
     override fun onCreateView(
