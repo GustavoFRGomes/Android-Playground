@@ -8,11 +8,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import me.ggomes.movieapp.data.repositories.MovieRepository
 import me.ggomes.movieapp.models.MovieDetail
-import org.koin.java.KoinJavaComponent.inject
 
-class MovieDetailsViewModel: BaseViewModel() {
-
-    private val movieRepository: MovieRepository by inject(MovieRepository::class.java)
+class MovieDetailsViewModel(
+    private val movieRepository: MovieRepository
+): BaseViewModel() {
 
     fun getMovieDetailsBy(movieId: String): LiveData<MovieDetail> {
         val responseLiveData = MutableLiveData<MovieDetail>()

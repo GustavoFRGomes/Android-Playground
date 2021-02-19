@@ -11,6 +11,7 @@ import me.ggomes.movieapp.data.network.OpenMovieDatabaseService
 import me.ggomes.movieapp.data.paging.PageRemoteMediator
 import me.ggomes.movieapp.models.Movie
 import me.ggomes.movieapp.models.MovieDetail
+import retrofit2.HttpException
 
 class MovieRepository(
     private val database: MovieDatabase,
@@ -50,8 +51,8 @@ class MovieRepository(
                 database.movieDetailDao().insert(movie)
                 emit(movie)
             }
-        } catch (exception: Exception) {
-            // Don't absorb exception if Database didn't provide results
+        } catch (exception: HttpException) {
+            // Throw exception only if Database didn't provide results as well
             if (databaseResult == null)
                 throw exception
         }

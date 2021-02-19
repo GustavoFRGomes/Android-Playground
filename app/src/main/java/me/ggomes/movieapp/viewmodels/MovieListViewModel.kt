@@ -7,11 +7,10 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
 import me.ggomes.movieapp.data.repositories.MovieRepository
 import me.ggomes.movieapp.models.Movie
-import org.koin.java.KoinJavaComponent.inject
 
-class MovieListViewModel: BaseViewModel() {
-
-    private val movieRepository: MovieRepository by inject(MovieRepository::class.java)
+class MovieListViewModel(
+    private val movieRepository: MovieRepository
+): BaseViewModel() {
 
     @ExperimentalPagingApi
     fun getMovies(searchTerm: String = "dog"): Flow<PagingData<Movie>> {
