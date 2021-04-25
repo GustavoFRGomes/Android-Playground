@@ -2,23 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/movieListFragment">
+    app:startDestination="@id/vehicleListFragment">
 
     <fragment
-        android:id="@+id/movieListFragment"
-        android:name="me.ggomes.movieapp.views.fragments.MovieListFragment"
-        android:label="MovieListFragment" >
+        android:id="@+id/vehicleListFragment"
+        android:name="me.ggomes.demo.views.fragments.VehicleListFragment"
+        android:label="VehicleListFragment" >
         <action
-            android:id="@+id/action_movieListFragment_to_movieDetailsFragment"
-            app:destination="@id/movieDetailsFragment" >
-            <argument
-                android:name="movieId"
-                app:argType="string"
-                android:defaultValue=""/>
-        </action>
+            android:id="@+id/action_vehicleListFragment_to_largePictureDetailsFragment"
+            app:destination="@id/largePictureDetailsFragment"
+            app:popUpTo="@id/vehicleListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/movieDetailsFragment"
-        android:name="me.ggomes.movieapp.views.fragments.MovieDetailsFragment"
-        android:label="MovieDetailsFragment" />
+        android:id="@+id/largePictureDetailsFragment"
+        android:name="me.ggomes.demo.views.fragments.LargePictureDetailsFragment"
+        android:label="LargePictureDetailsFragment" >
+        <argument
+            android:name="largeImageUrl"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
 </navigation>

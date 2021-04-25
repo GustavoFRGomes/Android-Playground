@@ -1,4 +1,4 @@
-# mvvm_movie_app
+# Android Playground
 
 Demo App with the same old List/Grid that will onItemClick go to details screen.
 

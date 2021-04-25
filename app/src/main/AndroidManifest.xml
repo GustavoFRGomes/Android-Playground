@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.ggomes.movieapp">
+    package="me.ggomes.demo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp"
-        android:name=".MovieApplication">
-        <activity android:name=".views.MainActivity">
+        android:name="me.ggomes.demo.Application">
+        <activity android:name="me.ggomes.demo.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
