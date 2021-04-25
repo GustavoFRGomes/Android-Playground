@@ -14,5 +14,5 @@ val appModules = module {
     single { MobileDeRepository(get())}
 
     viewModel { VehicleListViewModel(get()) }
-    viewModel { LargePictureViewModel() }
+    viewModel { LargePictureViewModel(get()) }
 }
