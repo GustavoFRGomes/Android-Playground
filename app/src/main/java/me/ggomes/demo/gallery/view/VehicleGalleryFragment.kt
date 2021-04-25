@@ -1,4 +1,4 @@
-package me.ggomes.demo.views.fragments
+package me.ggomes.demo.gallery.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,30 +12,30 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.ggomes.demo.R
 import me.ggomes.demo.data.dto.Image
-import me.ggomes.demo.databinding.FragmentMovieListBinding
-import me.ggomes.demo.viewmodels.VehicleListViewModel
-import me.ggomes.demo.views.adapters.VehicleGridRecyclerAdapter
+import me.ggomes.demo.gallery.viewmodel.VehicleListViewModel
+import me.ggomes.demo.common.views.fragments.VehicleListFragmentDirections
+import me.ggomes.demo.databinding.FragmentVehicleGalleryBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class VehicleListFragment: Fragment() {
+class VehicleGalleryFragment: Fragment() {
 
     private val vehicleListViewModel: VehicleListViewModel by viewModel()
-    private lateinit var movieListViewBinding: FragmentMovieListBinding
+    private lateinit var galleryViewBinding: FragmentVehicleGalleryBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        movieListViewBinding = FragmentMovieListBinding.inflate(inflater , container, false)
-        return movieListViewBinding.root
+        galleryViewBinding = FragmentVehicleGalleryBinding.inflate(inflater , container, false)
+        return galleryViewBinding.root
     }
 
     @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recycler = movieListViewBinding.movieRecyclerview
+        val recycler = galleryViewBinding.galleryRecyclerview
         recycler.layoutManager = GridLayoutManager(
             requireContext(),
             2,
@@ -50,19 +50,21 @@ class VehicleListFragment: Fragment() {
                 Toast.LENGTH_SHORT).show()
         }
 
-        movieListViewBinding.progressBar.visibility = View.VISIBLE
+        galleryViewBinding.progressBar.visibility = View.VISIBLE
         vehicleListViewModel.getVehicleById()
 
         vehicleListViewModel.carImagesLiveData.observe(viewLifecycleOwner) {
-            movieListViewBinding.progressBar.visibility = View.GONE
+            galleryViewBinding.progressBar.visibility = View.GONE
             val recyclerAdapter = VehicleGridRecyclerAdapter(it, ::navigateToMovieDetails)
             recycler.adapter = recyclerAdapter
         }
     }
 
     private fun navigateToMovieDetails(image: Image) {
-        val action = VehicleListFragmentDirections
-            .actionVehicleListFragmentToLargePictureDetailsFragment(image.largeUrl!!)
+        val action =
+            VehicleListFragmentDirections.actionVehicleListFragmentToLargePictureDetailsFragment(
+                image.largeUrl!!
+            )
 
         findNavController().navigate(action)
     }

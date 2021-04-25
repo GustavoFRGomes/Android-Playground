@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/vehicleListFragment"
-        android:name="me.ggomes.demo.views.fragments.VehicleListFragment"
+        android:name="me.ggomes.demo.gallery.view.VehicleGalleryFragment"
         android:label="VehicleListFragment" >
         <action
             android:id="@+id/action_vehicleListFragment_to_largePictureDetailsFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/largePictureDetailsFragment"
-        android:name="me.ggomes.demo.views.fragments.LargePictureDetailsFragment"
+        android:name="me.ggomes.demo.detail.LargePictureDetailsFragment"
         android:label="LargePictureDetailsFragment" >
         <argument
             android:name="largeImageUrl"

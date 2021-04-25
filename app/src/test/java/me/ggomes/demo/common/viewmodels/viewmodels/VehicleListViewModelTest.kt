@@ -1,4 +1,4 @@
-package me.ggomes.demo.viewmodels
+package me.ggomes.demo.common.viewmodels.viewmodels
 
 import androidx.paging.ExperimentalPagingApi
 import io.mockk.*
@@ -6,6 +6,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import me.ggomes.demo.data.repositories.MobileDeRepository
+import me.ggomes.demo.gallery.viewmodel.VehicleListViewModel
 import org.junit.After
 import org.junit.Test
 

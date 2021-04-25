@@ -1,4 +1,4 @@
-package me.ggomes.demo.views
+package me.ggomes.demo.common.views
 
 import android.os.Bundle
 import android.view.MenuItem

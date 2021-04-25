@@ -1,4 +1,4 @@
-package me.ggomes.demo.viewmodels
+package me.ggomes.demo.common.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

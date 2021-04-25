@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp"
         android:name="me.ggomes.demo.Application">
-        <activity android:name="me.ggomes.demo.views.MainActivity">
+        <activity android:name="me.ggomes.demo.common.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

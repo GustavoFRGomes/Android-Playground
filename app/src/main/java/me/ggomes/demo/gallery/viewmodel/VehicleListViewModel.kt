@@ -1,7 +1,8 @@
-package me.ggomes.demo.viewmodels
+package me.ggomes.demo.gallery.viewmodel
 
 import androidx.lifecycle.*
 import androidx.paging.ExperimentalPagingApi
+import me.ggomes.demo.common.viewmodels.BaseViewModel
 import me.ggomes.demo.data.dto.Image
 import me.ggomes.demo.data.repositories.MobileDeRepository
 

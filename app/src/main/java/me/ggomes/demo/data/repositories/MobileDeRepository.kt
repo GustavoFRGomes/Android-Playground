@@ -3,7 +3,6 @@ package me.ggomes.demo.data.repositories
 import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import me.ggomes.demo.data.database.MovieDatabase
 import me.ggomes.demo.data.dto.VehicleDetailsResponse
 import me.ggomes.demo.data.network.MobileDeApiService
 import retrofit2.HttpException
