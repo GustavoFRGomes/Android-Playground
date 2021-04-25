@@ -1,8 +1,7 @@
 package me.ggomes.demo.data.dto
 
 data class Image(
-    val uri: String?,
-    val set: String?,
+    val uri: String?
 ) {
     val thumbnailUrl : String?
         get() = uri?.let {

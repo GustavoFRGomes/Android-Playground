@@ -6,7 +6,7 @@ import org.junit.Assert.*
 
 class ImageModelTest {
 
-    private val testImage = Image("URI", "SET")
+    private val testImage = Image("URI")
 
     @Test
     fun getThumbnailUrl() {

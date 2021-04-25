@@ -14,10 +14,13 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import me.ggomes.demo.common.views.fragments.LargePictureDetailsFragmentArgs
 import me.ggomes.demo.databinding.FragmentLargePictureDetailsBinding
+import me.ggomes.demo.detail.viewmodel.LargePictureViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LargePictureDetailsFragment: Fragment() {
 
     private lateinit var viewBinding: FragmentLargePictureDetailsBinding
+    private val viewModel: LargePictureViewModel by viewModel()
     private val args : LargePictureDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -33,32 +36,34 @@ class LargePictureDetailsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         args.largeImageUrl.let {
-
-            // TODO: Add error case if URL is bad.
             Glide.with(view.context)
-                .load(it)
-                .listener(object: RequestListener<Drawable?> {
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable?>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        viewBinding.progressBar.visibility = View.GONE
-                        return false
-                    }
-
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable?>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        return false
-                    }
-                })
+                .load(viewModel.generateImageUrlFromUri(it))
+                .listener(getRequestListener())
                 .into(viewBinding.showcaseLargeImageView)
+        }
+    }
+
+    private fun getRequestListener(): RequestListener<Drawable?> {
+        return object: RequestListener<Drawable?> {
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable?>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                viewBinding.progressBar.visibility = View.GONE
+                return false
+            }
+
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable?>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                return false
+            }
         }
     }
 }

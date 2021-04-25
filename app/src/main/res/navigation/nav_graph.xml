@@ -18,8 +18,7 @@
         android:name="me.ggomes.demo.detail.LargePictureDetailsFragment"
         android:label="LargePictureDetailsFragment" >
         <argument
-            android:name="largeImageUrl"
-            app:argType="string"
-            android:defaultValue="" />
+            android:name="imageUri"
+            app:argType="string" />
     </fragment>
 </navigation>

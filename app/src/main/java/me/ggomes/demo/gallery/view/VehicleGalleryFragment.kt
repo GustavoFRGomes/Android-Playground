@@ -41,13 +41,9 @@ class VehicleGalleryFragment: Fragment() {
             2,
             RecyclerView.VERTICAL,
             false)
-        //recycler.setHasFixedSize(true)
 
         vehicleListViewModel.errorLiveData.observe(viewLifecycleOwner) {
-            Toast.makeText(
-                context,
-                requireContext().getString(R.string.error_data_retrieval),
-                Toast.LENGTH_SHORT).show()
+            presentErrorToast(requireContext().getString(R.string.error_data_retrieval))
         }
 
         galleryViewBinding.progressBar.visibility = View.VISIBLE
@@ -61,11 +57,23 @@ class VehicleGalleryFragment: Fragment() {
     }
 
     private fun navigateToMovieDetails(image: Image) {
-        val action =
-            VehicleListFragmentDirections.actionVehicleListFragmentToLargePictureDetailsFragment(
-                image.largeUrl!!
-            )
+        if (image.uri != null) {
+            val action =
+                VehicleListFragmentDirections.actionVehicleListFragmentToLargePictureDetailsFragment(
+                    image.uri
+                )
 
-        findNavController().navigate(action)
+            findNavController().navigate(action)
+        } else {
+            presentErrorToast(getString(R.string.error_cant_navigate_to_details))
+        }
+    }
+
+    private fun presentErrorToast(message: String) {
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_SHORT)
+            .show()
     }
 }

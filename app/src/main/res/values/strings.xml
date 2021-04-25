@@ -3,4 +3,5 @@
     <string name="details_actors_dynamic">Actors: %1$s</string>
     <string name="details_directors_dynamic">Directors: %1$s</string>
     <string name="error_data_retrieval">There was a problem retrieving the data!</string>
+    <string name="error_cant_navigate_to_details">There seems to be a problem with this image.</string>
 </resources>
