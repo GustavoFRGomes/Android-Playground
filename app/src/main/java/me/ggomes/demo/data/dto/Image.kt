@@ -1,7 +1,5 @@
 package me.ggomes.demo.data.dto
 
-import com.google.gson.annotations.SerializedName
-
 data class Image(
     val uri: String?,
     val set: String?,

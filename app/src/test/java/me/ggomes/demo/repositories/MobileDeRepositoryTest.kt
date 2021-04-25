@@ -1,12 +1,15 @@
 package me.ggomes.demo.repositories
 
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.coVerifyOrder
+import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.test.*
-import me.ggomes.demo.data.database.MovieDatabase
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import me.ggomes.demo.data.network.MobileDeApiService
 import me.ggomes.demo.data.repositories.MobileDeRepository
 import org.junit.After
