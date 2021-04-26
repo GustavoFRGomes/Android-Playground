@@ -1,9 +1,10 @@
 package me.ggomes.demo.common.viewmodels.viewmodels
 
-import androidx.paging.ExperimentalPagingApi
 import io.mockk.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
 import me.ggomes.demo.data.repositories.MobileDeRepository
 import me.ggomes.demo.gallery.viewmodel.VehicleListViewModel
@@ -11,35 +12,31 @@ import org.junit.After
 import org.junit.Test
 
 import org.junit.Before
+import java.util.concurrent.Executors
 
 class VehicleListViewModelTest {
 
     private lateinit var SUT: VehicleListViewModel
     private lateinit var repository: MobileDeRepository
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-
     @ExperimentalCoroutinesApi
+    private val coroutineDispatcher = TestCoroutineDispatcher()
+
     @Before
     fun setup() {
-        repository = mockk()
+        repository = mockk(relaxed = true)
         SUT = VehicleListViewModel(repository)
-        Dispatchers.setMain(mainThreadSurrogate)
     }
 
     @ExperimentalCoroutinesApi
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        mainThreadSurrogate.close()
-    }
-
-    @ExperimentalPagingApi
     @Test
-    fun `verify repository is called by ViewModel`(): Unit = runBlocking {
-        every { repository.getVehicleById(any()) } returns mockk()
+    fun `verify repository is called by ViewModel`() {
+        coEvery { repository.getVehicleImagesById(any()) } returns mockk()
 
-        SUT.getVehicleById()
-        verify(exactly = 1) { repository.getVehicleById(any()) }
+        coroutineDispatcher.runBlockingTest {
+            SUT.getVehicleById()
+        }
+
+        coVerify(exactly = 1) { repository.getVehicleImagesById(any()) }
     }
 
 }

@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.ggomes.demo.R
-import me.ggomes.demo.data.dto.Image
-import me.ggomes.demo.gallery.viewmodel.VehicleListViewModel
 import me.ggomes.demo.common.views.fragments.VehicleListFragmentDirections
+import me.ggomes.demo.data.dto.Image
 import me.ggomes.demo.databinding.FragmentVehicleGalleryBinding
+import me.ggomes.demo.gallery.viewmodel.VehicleListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VehicleGalleryFragment: Fragment() {
@@ -31,7 +30,6 @@ class VehicleGalleryFragment: Fragment() {
         return galleryViewBinding.root
     }
 
-    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

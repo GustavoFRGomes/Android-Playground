@@ -12,10 +12,13 @@ import retrofit2.HttpException
 class MobileDeRepository(
     private val apiService: MobileDeApiService
 ) {
-    fun getVehicleById(vehicleId: Long): Flow<VehicleDetailsResponse> = flow {
+    fun getVehicleImagesById(vehicleId: Long): Flow<List<Image>> = flow {
         try {
             val networkResponse = apiService.getVehicleById(vehicleId)
-            emit(networkResponse)
+
+            networkResponse.images?.let {
+                emit(networkResponse.images)
+            }
         } catch (exception: HttpException) {
             Log.e("REPOSITORY", "Exception: ${exception.message()}")
             throw exception
