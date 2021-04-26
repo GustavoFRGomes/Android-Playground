@@ -21,7 +21,9 @@ class GalleryViewModel(
     private val _carImagesLiveData = MutableLiveData<List<GalleryImage>>()
     val carImagesLiveData: LiveData<List<GalleryImage>> = _carImagesLiveData
 
-    private val dtoToVehicleMapper = ImageDtoToVehicleMapper()
+    private val dtoToVehicleMapper : ImageDtoToVehicleMapper by inject(
+        ImageDtoToVehicleMapper::class.java)
+
     private val errorHandler: ErrorHandler by inject(ErrorHandler::class.java)
 
     // Using hardcoded default value as in the doc

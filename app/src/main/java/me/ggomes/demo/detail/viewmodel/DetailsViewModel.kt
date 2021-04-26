@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import me.ggomes.demo.data.enum.PictureSize
 import me.ggomes.demo.data.repositories.MobileDeRepository
 
-class LargePictureViewModel(
+class DetailsViewModel(
     private val repository: MobileDeRepository
 ): ViewModel() {
 

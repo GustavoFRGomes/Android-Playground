@@ -2,20 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/vehicleListFragment">
+    app:startDestination="@id/galleryFragment">
 
     <fragment
-        android:id="@+id/vehicleListFragment"
-        android:name="me.ggomes.demo.gallery.view.VehicleGalleryFragment"
+        android:id="@+id/galleryFragment"
+        android:name="me.ggomes.demo.gallery.view.GalleryFragment"
         android:label="@string/app_title">
         <action
-            android:id="@+id/action_vehicleListFragment_to_largePictureDetailsFragment"
-            app:destination="@id/largePictureDetailsFragment"
-            app:popUpTo="@id/vehicleListFragment" />
+            android:id="@+id/action_galleryFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/galleryFragment" />
     </fragment>
     <fragment
-        android:id="@+id/largePictureDetailsFragment"
-        android:name="me.ggomes.demo.detail.LargePictureDetailsFragment"
+        android:id="@+id/detailsFragment"
+        android:name="me.ggomes.demo.detail.view.DetailsFragment"
         android:label="@string/details_title">
         <argument
             android:name="imageUri"

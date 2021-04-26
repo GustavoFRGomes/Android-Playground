@@ -5,6 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 open class BaseViewModel: ViewModel() {
-    protected val internalErrorLiveData = MutableLiveData<Throwable>()
-    val errorLiveData: LiveData<Throwable> = internalErrorLiveData
+    protected val _errorLiveData = MutableLiveData<String>()
+    val errorLiveData: LiveData<String> = _errorLiveData
 }

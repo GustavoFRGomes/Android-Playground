@@ -3,29 +3,22 @@ package me.ggomes.demo.detail.viewmodel
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
 import me.ggomes.demo.data.enum.PictureSize
 import me.ggomes.demo.data.repositories.MobileDeRepository
-import me.ggomes.demo.gallery.viewmodel.VehicleListViewModel
-import org.junit.After
 import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Before
 
-class LargePictureViewModelTest {
+class DetailsViewModelTest {
 
-    private lateinit var SUT: LargePictureViewModel
+    private lateinit var SUT: DetailsViewModel
     private lateinit var repository: MobileDeRepository
 
     @Before
     fun setup() {
         repository = mockk()
-        SUT = LargePictureViewModel(repository)
+        SUT = DetailsViewModel(repository)
     }
 
 

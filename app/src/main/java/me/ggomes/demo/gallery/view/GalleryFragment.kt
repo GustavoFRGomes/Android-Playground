@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import me.ggomes.demo.R
 import me.ggomes.demo.databinding.FragmentGalleryBinding
 import me.ggomes.demo.gallery.models.GalleryImage
 import me.ggomes.demo.gallery.viewmodel.GalleryViewModel
@@ -56,16 +55,12 @@ class GalleryFragment: Fragment() {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun navigateToMovieDetails(galleryImage: GalleryImage) {
-        if (galleryImage.uri != null) {
-            val action =
-                GalleryFragmentDirections.actionVehicleListFragmentToLargePictureDetailsFragment(
-                    galleryImage.uri
-                )
+        val action =
+            GalleryFragmentDirections.actionGalleryFragmentToDetailsFragment(
+                galleryImage.uri
+            )
 
-            findNavController().navigate(action)
-        } else {
-            presentErrorToast(getString(R.string.error_cant_navigate_to_details))
-        }
+        findNavController().navigate(action)
     }
 
     private fun presentErrorToast(message: String) {

@@ -4,7 +4,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-class ImageModelTest {
+class ImageTest {
 
     private val testImage = Image("URI")
 

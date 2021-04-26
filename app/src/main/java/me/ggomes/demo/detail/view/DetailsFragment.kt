@@ -1,4 +1,4 @@
-package me.ggomes.demo.detail
+package me.ggomes.demo.detail.view
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -12,16 +12,15 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import me.ggomes.demo.common.views.fragments.LargePictureDetailsFragmentArgs
 import me.ggomes.demo.databinding.FragmentLargePictureDetailsBinding
-import me.ggomes.demo.detail.viewmodel.LargePictureViewModel
+import me.ggomes.demo.detail.viewmodel.DetailsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LargePictureDetailsFragment: Fragment() {
+class DetailsFragment: Fragment() {
 
     private lateinit var viewBinding: FragmentLargePictureDetailsBinding
-    private val viewModel: LargePictureViewModel by viewModel()
-    private val args : LargePictureDetailsFragmentArgs by navArgs()
+    private val viewModel: DetailsViewModel by viewModel()
+    private val args : DetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +34,7 @@ class LargePictureDetailsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        args.largeImageUrl.let {
+        args.imageUri.let {
             Glide.with(view.context)
                 .load(viewModel.generateImageUrlFromUri(it))
                 .listener(getRequestListener())
