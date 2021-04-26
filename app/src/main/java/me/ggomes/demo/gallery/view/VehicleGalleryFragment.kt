@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.ggomes.demo.R
 import me.ggomes.demo.common.views.fragments.VehicleListFragmentDirections
-import me.ggomes.demo.data.dto.Image
 import me.ggomes.demo.databinding.FragmentVehicleGalleryBinding
+import me.ggomes.demo.gallery.models.Vehicle
 import me.ggomes.demo.gallery.viewmodel.VehicleListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -54,11 +55,12 @@ class VehicleGalleryFragment: Fragment() {
         }
     }
 
-    private fun navigateToMovieDetails(image: Image) {
-        if (image.uri != null) {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun navigateToMovieDetails(vehicle: Vehicle) {
+        if (vehicle.uri != null) {
             val action =
                 VehicleListFragmentDirections.actionVehicleListFragmentToLargePictureDetailsFragment(
-                    image.uri
+                    vehicle.uri
                 )
 
             findNavController().navigate(action)
