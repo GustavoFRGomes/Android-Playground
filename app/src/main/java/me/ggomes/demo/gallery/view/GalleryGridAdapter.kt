@@ -36,7 +36,7 @@ class GalleryGridAdapter(
         fun bind(galleryImage: GalleryImage) {
             Glide.with(this.viewBinding.root.context)
                 .load(galleryImage.thumbnailImageUrl)
-                .placeholder(R.drawable.movie_placeholder)
+                .placeholder(R.drawable.gallery_item_placeholder)
                 .into(viewBinding.itemImageView)
 
             itemView.setOnClickListener {

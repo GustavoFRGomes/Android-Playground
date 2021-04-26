@@ -26,7 +26,7 @@ class GalleryViewModel(
 
     private val errorHandler: ErrorHandler by inject(ErrorHandler::class.java)
 
-    // Using hardcoded default value as in the doc
+    // Using hardcoded default value but leaving it open for a search field to change in the future
     fun getVehicleById(vehicleId: Long = 306863282) {
         viewModelScope.launch {
             mobileDeRepository.getVehicleImagesById(vehicleId)

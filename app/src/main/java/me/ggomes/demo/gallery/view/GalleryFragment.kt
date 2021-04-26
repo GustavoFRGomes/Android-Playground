@@ -48,13 +48,13 @@ class GalleryFragment: Fragment() {
 
         galleryViewModel.carImagesLiveData.observe(viewLifecycleOwner) {
             galleryViewBinding.progressBar.visibility = View.GONE
-            val recyclerAdapter = GalleryGridAdapter(it, ::navigateToMovieDetails)
+            val recyclerAdapter = GalleryGridAdapter(it, ::navigateToDetailsScreen)
             recycler.adapter = recyclerAdapter
         }
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun navigateToMovieDetails(galleryImage: GalleryImage) {
+    fun navigateToDetailsScreen(galleryImage: GalleryImage) {
         val action =
             GalleryFragmentDirections.actionGalleryFragmentToDetailsFragment(
                 galleryImage.uri

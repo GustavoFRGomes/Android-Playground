@@ -12,13 +12,13 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import me.ggomes.demo.databinding.FragmentLargePictureDetailsBinding
+import me.ggomes.demo.databinding.FragmentDetailsBinding
 import me.ggomes.demo.detail.viewmodel.DetailsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment: Fragment() {
 
-    private lateinit var viewBinding: FragmentLargePictureDetailsBinding
+    private lateinit var viewBinding: FragmentDetailsBinding
     private val viewModel: DetailsViewModel by viewModel()
     private val args : DetailsFragmentArgs by navArgs()
 
@@ -27,7 +27,7 @@ class DetailsFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewBinding = FragmentLargePictureDetailsBinding.inflate(inflater)
+        viewBinding = FragmentDetailsBinding.inflate(inflater)
         return viewBinding.root
     }
 
