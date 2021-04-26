@@ -15,7 +15,7 @@ class GalleryGridAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryItemViewHolder {
         val itemView = ViewHolderGalleryItemBinding.inflate(
-            LayoutInflater.from(parent.context)
+            LayoutInflater.from(parent.context), parent, false
         )
 
         return GalleryItemViewHolder(itemView)

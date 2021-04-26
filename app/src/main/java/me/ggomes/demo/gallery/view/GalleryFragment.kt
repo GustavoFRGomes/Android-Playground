@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,15 +16,17 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GalleryFragment: Fragment() {
 
+    private var _galleryViewBinding: FragmentGalleryBinding? = null
+    private val galleryViewBinding get() = _galleryViewBinding!!
+
     private val galleryViewModel: GalleryViewModel by viewModel()
-    private lateinit var galleryViewBinding: FragmentGalleryBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        galleryViewBinding = FragmentGalleryBinding.inflate(inflater , container, false)
+        _galleryViewBinding = FragmentGalleryBinding.inflate(inflater , container, false)
         return galleryViewBinding.root
     }
 
@@ -44,7 +45,7 @@ class GalleryFragment: Fragment() {
         }
 
         galleryViewBinding.progressBar.visibility = View.VISIBLE
-        galleryViewModel.getVehicleById()
+        galleryViewModel.fetchVehicleById()
 
         galleryViewModel.carImagesLiveData.observe(viewLifecycleOwner) {
             galleryViewBinding.progressBar.visibility = View.GONE
@@ -53,8 +54,7 @@ class GalleryFragment: Fragment() {
         }
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun navigateToDetailsScreen(galleryImage: GalleryImage) {
+    private fun navigateToDetailsScreen(galleryImage: GalleryImage) {
         val action =
             GalleryFragmentDirections.actionGalleryFragmentToDetailsFragment(
                 galleryImage.uri
@@ -69,5 +69,10 @@ class GalleryFragment: Fragment() {
             message,
             Toast.LENGTH_SHORT)
             .show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _galleryViewBinding = null
     }
 }

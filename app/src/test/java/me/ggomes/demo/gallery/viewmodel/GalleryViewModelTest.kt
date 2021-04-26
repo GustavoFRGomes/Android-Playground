@@ -29,7 +29,7 @@ class GalleryViewModelTest {
         coEvery { repository.getVehicleImagesById(any()) } returns mockk()
 
         coroutineDispatcher.runBlockingTest {
-            SUT.getVehicleById()
+            SUT.fetchVehicleById()
         }
 
         coVerify(exactly = 1) { repository.getVehicleImagesById(any()) }

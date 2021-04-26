@@ -8,7 +8,13 @@ class DetailsViewModel(
     private val repository: MobileDeRepository
 ): ViewModel() {
 
-    fun generateImageUrlFromUri(imageUri: String): String {
+    /**
+     * Method to convert an image URI into an URL
+     *
+     * @param imageUri Image URI String
+     * @return Image URL String
+     */
+    fun getImageUrlFromUri(imageUri: String): String {
         return repository.generateUrl(imageUri, PictureSize.LARGE)
     }
 }

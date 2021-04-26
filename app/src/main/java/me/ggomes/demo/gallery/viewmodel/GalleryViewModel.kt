@@ -26,24 +26,22 @@ class GalleryViewModel(
 
     private val errorHandler: ErrorHandler by inject(ErrorHandler::class.java)
 
-    // Using hardcoded default value but leaving it open for a search field to change in the future
-    fun getVehicleById(vehicleId: Long = 306863282) {
+    /**
+     * Method to fetch the images of the vehicle by ID
+     *
+     * @param vehicleId ID of the vehicle that will be displayed (defaults to demo ID of 306863282)
+     */
+    fun fetchVehicleById(vehicleId: Long = 306863282) {
         viewModelScope.launch {
             mobileDeRepository.getVehicleImagesById(vehicleId)
-                .handleErrors()
                 .collect {
-                    val images = it.map { dtoToVehicleMapper.mapFromImageDto(it) }
-                    _carImagesLiveData.postValue(images)
+                    try {
+                        val images = it.map { dtoToVehicleMapper.mapFromImageDto(it) }
+                        _carImagesLiveData.postValue(images)
+                    } catch (exception: Exception) {
+                        _errorLiveData.postValue(errorHandler.handleException(exception))
+                    }
                 }
-        }
-    }
-
-    // Helper function to handle errors that might come from the the API or Parsing.
-    private fun <T> Flow<T>.handleErrors(): Flow<T> = flow {
-        try {
-            collect { value -> emit(value)}
-        } catch (exception: Exception) {
-            _errorLiveData.postValue(errorHandler.handleException(exception))
         }
     }
 }

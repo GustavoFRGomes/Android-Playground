@@ -18,7 +18,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment: Fragment() {
 
-    private lateinit var viewBinding: FragmentDetailsBinding
+    private var _detailsViewBinding: FragmentDetailsBinding? = null
+    private val detailsViewBinding get() = _detailsViewBinding!!
+
     private val viewModel: DetailsViewModel by viewModel()
     private val args : DetailsFragmentArgs by navArgs()
 
@@ -27,8 +29,8 @@ class DetailsFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewBinding = FragmentDetailsBinding.inflate(inflater)
-        return viewBinding.root
+        _detailsViewBinding = FragmentDetailsBinding.inflate(inflater)
+        return detailsViewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,9 +38,9 @@ class DetailsFragment: Fragment() {
 
         args.imageUri.let {
             Glide.with(view.context)
-                .load(viewModel.generateImageUrlFromUri(it))
+                .load(viewModel.getImageUrlFromUri(it))
                 .listener(getRequestListener())
-                .into(viewBinding.showcaseLargeImageView)
+                .into(detailsViewBinding.showcaseLargeImageView)
         }
     }
 
@@ -51,7 +53,7 @@ class DetailsFragment: Fragment() {
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewBinding.progressBar.visibility = View.GONE
+                detailsViewBinding.progressBar.visibility = View.GONE
                 return false
             }
 
@@ -64,5 +66,10 @@ class DetailsFragment: Fragment() {
                 return false
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _detailsViewBinding = null
     }
 }

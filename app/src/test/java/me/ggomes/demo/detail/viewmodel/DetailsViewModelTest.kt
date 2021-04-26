@@ -28,14 +28,14 @@ class DetailsViewModelTest {
         val expectedUrl = "https://URI_27.jpg"
         every { repository.generateUrl(testUri, PictureSize.LARGE) } returns expectedUrl
 
-        assertEquals(SUT.generateImageUrlFromUri(testUri), expectedUrl)
+        assertEquals(SUT.getImageUrlFromUri(testUri), expectedUrl)
     }
 
     @Test
     fun `check if view model calls repository for Large URL`() {
         every { repository.generateUrl(any(), any()) } returns "URL"
 
-        SUT.generateImageUrlFromUri("URI")
+        SUT.getImageUrlFromUri("URI")
         verify(exactly = 1) { repository.generateUrl("URI", PictureSize.LARGE) }
     }
 }

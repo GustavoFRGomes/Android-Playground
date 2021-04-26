@@ -26,7 +26,6 @@ class MobileDeRepositoryTest {
         "ferrari",
         1,
         "URL",
-        null,
         emptyList())
 
     @ExperimentalCoroutinesApi
