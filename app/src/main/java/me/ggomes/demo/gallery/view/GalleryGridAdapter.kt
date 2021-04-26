@@ -5,42 +5,42 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import me.ggomes.demo.R
-import me.ggomes.demo.data.dto.Image
 import me.ggomes.demo.databinding.ViewHolderGalleryItemBinding
+import me.ggomes.demo.gallery.models.GalleryImage
 
-class VehicleGridRecyclerAdapter(
-    private val imageUrls: List<Image>,
-    private val onItemClickListener: (Image) -> Unit
-): RecyclerView.Adapter<VehicleGridRecyclerAdapter.VehicleViewHolder>() {
+class GalleryGridAdapter(
+    private val galleryImages: List<GalleryImage>,
+    private val onItemClickListener: (GalleryImage) -> Unit
+): RecyclerView.Adapter<GalleryGridAdapter.GalleryItemViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VehicleViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryItemViewHolder {
         val itemView = ViewHolderGalleryItemBinding.inflate(
             LayoutInflater.from(parent.context)
         )
 
-        return VehicleViewHolder(itemView)
+        return GalleryItemViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: VehicleViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GalleryItemViewHolder, position: Int) {
         holder.bind(
-            imageUrls[position]
+            galleryImages[position]
         )
     }
 
-    override fun getItemCount() = imageUrls.size
+    override fun getItemCount() = galleryImages.size
 
-    inner class VehicleViewHolder(
+    inner class GalleryItemViewHolder(
         private val viewBinding: ViewHolderGalleryItemBinding
     ): RecyclerView.ViewHolder(viewBinding.root) {
 
-        fun bind(image: Image) {
+        fun bind(galleryImage: GalleryImage) {
             Glide.with(this.viewBinding.root.context)
-                .load(image.thumbnailUrl)
+                .load(galleryImage.thumbnailImageUrl)
                 .placeholder(R.drawable.movie_placeholder)
                 .into(viewBinding.itemImageView)
 
             itemView.setOnClickListener {
-                onItemClickListener(image)
+                onItemClickListener(galleryImage)
             }
         }
     }

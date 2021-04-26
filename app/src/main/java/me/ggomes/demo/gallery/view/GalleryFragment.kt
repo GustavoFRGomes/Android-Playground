@@ -11,23 +11,22 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.ggomes.demo.R
-import me.ggomes.demo.common.views.fragments.VehicleListFragmentDirections
-import me.ggomes.demo.databinding.FragmentVehicleGalleryBinding
-import me.ggomes.demo.gallery.models.Vehicle
-import me.ggomes.demo.gallery.viewmodel.VehicleListViewModel
+import me.ggomes.demo.databinding.FragmentGalleryBinding
+import me.ggomes.demo.gallery.models.GalleryImage
+import me.ggomes.demo.gallery.viewmodel.GalleryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class VehicleGalleryFragment: Fragment() {
+class GalleryFragment: Fragment() {
 
-    private val vehicleListViewModel: VehicleListViewModel by viewModel()
-    private lateinit var galleryViewBinding: FragmentVehicleGalleryBinding
+    private val galleryViewModel: GalleryViewModel by viewModel()
+    private lateinit var galleryViewBinding: FragmentGalleryBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        galleryViewBinding = FragmentVehicleGalleryBinding.inflate(inflater , container, false)
+        galleryViewBinding = FragmentGalleryBinding.inflate(inflater , container, false)
         return galleryViewBinding.root
     }
 
@@ -41,26 +40,26 @@ class VehicleGalleryFragment: Fragment() {
             RecyclerView.VERTICAL,
             false)
 
-        vehicleListViewModel.errorLiveData.observe(viewLifecycleOwner) {
-            presentErrorToast(requireContext().getString(R.string.error_data_retrieval))
+        galleryViewModel.errorLiveData.observe(viewLifecycleOwner) {
+            presentErrorToast(it)
         }
 
         galleryViewBinding.progressBar.visibility = View.VISIBLE
-        vehicleListViewModel.getVehicleById()
+        galleryViewModel.getVehicleById()
 
-        vehicleListViewModel.carImagesLiveData.observe(viewLifecycleOwner) {
+        galleryViewModel.carImagesLiveData.observe(viewLifecycleOwner) {
             galleryViewBinding.progressBar.visibility = View.GONE
-            val recyclerAdapter = VehicleGridRecyclerAdapter(it, ::navigateToMovieDetails)
+            val recyclerAdapter = GalleryGridAdapter(it, ::navigateToMovieDetails)
             recycler.adapter = recyclerAdapter
         }
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun navigateToMovieDetails(vehicle: Vehicle) {
-        if (vehicle.uri != null) {
+    fun navigateToMovieDetails(galleryImage: GalleryImage) {
+        if (galleryImage.uri != null) {
             val action =
-                VehicleListFragmentDirections.actionVehicleListFragmentToLargePictureDetailsFragment(
-                    vehicle.uri
+                GalleryFragmentDirections.actionVehicleListFragmentToLargePictureDetailsFragment(
+                    galleryImage.uri
                 )
 
             findNavController().navigate(action)
