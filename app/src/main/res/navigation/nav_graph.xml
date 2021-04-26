@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/vehicleListFragment"
         android:name="me.ggomes.demo.gallery.view.VehicleGalleryFragment"
-        android:label="VehicleListFragment" >
+        android:label="@string/app_title">
         <action
             android:id="@+id/action_vehicleListFragment_to_largePictureDetailsFragment"
             app:destination="@id/largePictureDetailsFragment"
@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/largePictureDetailsFragment"
         android:name="me.ggomes.demo.detail.LargePictureDetailsFragment"
-        android:label="LargePictureDetailsFragment" >
+        android:label="@string/details_title">
         <argument
             android:name="imageUri"
             app:argType="string" />

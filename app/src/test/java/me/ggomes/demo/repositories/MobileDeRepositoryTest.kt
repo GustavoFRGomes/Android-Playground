@@ -1,7 +1,7 @@
 package me.ggomes.demo.repositories
 
 import io.mockk.coEvery
-import io.mockk.coVerifyOrder
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -10,6 +10,7 @@ import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
+import me.ggomes.demo.data.dto.VehicleDetailsResponse
 import me.ggomes.demo.data.network.MobileDeApiService
 import me.ggomes.demo.data.repositories.MobileDeRepository
 import org.junit.After
@@ -21,7 +22,14 @@ class MobileDeRepositoryTest {
     private lateinit var SUT: MobileDeRepository
     private val api = mockk<MobileDeApiService>(relaxed = true)
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+    private val mockResponse = VehicleDetailsResponse(
+        "ferrari",
+        1,
+        "URL",
+        null,
+        emptyList())
 
+    @ExperimentalCoroutinesApi
     @Before
     fun setUp() {
         SUT = MobileDeRepository(api)
@@ -37,17 +45,17 @@ class MobileDeRepositoryTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun getMovieBy() {
+    fun getVehicleById() {
 
         coEvery {
-            runBlockingTest {  api.getVehicleById(1) }
-        } returns mockk(relaxed = true)
+            api.getVehicleById(1)
+        } returns mockResponse
 
         runBlockingTest {
-            SUT.getVehicleById(1).collect()
+            SUT.getVehicleImagesById(1).collect()
         }
 
-        coVerifyOrder {
+        coVerify(exactly = 1) {
             api.getVehicleById(1)
         }
     }
